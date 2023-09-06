@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 create database centros;
-\c centros
+\c centros;
 
 -- Dumped from database version 14.9 (Homebrew)
 -- Dumped by pg_dump version 14.9 (Homebrew)
@@ -255,6 +255,11 @@ COPY public.migrations (id, migration, batch) FROM stdin;
 15	2020_11_20_000330_update_nombre_centros	1
 16	2021_01_22_040353_create_permission_tables	1
 17	2023_07_17_165120_add_dates_to_cursos_table	1
+\.
+
+
+COPY public.model_has_roles (role_id, model_type, model_id) FROM stdin;
+1	App\\User	1
 \.
 
 
