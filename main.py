@@ -57,7 +57,7 @@ def guardar_datos(table_name, data):
         # listado de valores
         placeholders = ", ".join(["%s"] * len(single_data))
         
-        # Generar la consulta SQL
+        # Generar la consulta SQL en base a columnas y valores
         query = f"INSERT INTO {table_name} ({columns}) VALUES ({placeholders}) RETURNING id"
         print(query)
         
