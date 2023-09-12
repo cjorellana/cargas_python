@@ -11,17 +11,17 @@ API_MAP = {
     "horarios": {"url": "https://informatica.galileo.edu/apicentrosidea/api/consulta/horarioscursos", "table": "horarios"},
 }
 
-# Mapeo de campos de la tabla y el json
+# Mapeo de campos de la tabla y el json (ya que no son iguales)
 COL_MAP = {
     'centros': {
-                'Centro': 'centro', 
-                'Centro_Nombre': 'nombre',
-                'Departamento':'departamento',
-                'Municipio':'municipio',
-                'Direccion':'direccion',
-                'Telefono':'telefono',
-                'Encargado':'encargado',
-                'Email':'email'
+                    'Centro': 'centro', 
+                    'Centro_Nombre': 'nombre',
+                    'Departamento':'departamento',
+                    'Municipio':'municipio',
+                    'Direccion':'direccion',
+                    'Telefono':'telefono',
+                    'Encargado':'encargado',
+                    'Email':'email'
                 },
     'periodos': {
                     'Carrera': 'carrera', 
