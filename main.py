@@ -12,9 +12,22 @@ API_MAP = {
 }
 
 # Mapeo de campos de la tabla y el json
-COLUMN_MAPPINGS = {
-    'centros': {'Centro': 'centro', 'Centro_Nombre': 'nombre','Departamento':'departamento'},
-    'periodos': {'Nombre': 'nombre_municipio', 'personas': 'personas'}
+COL_MAP = {
+    'centros': {
+                'Centro': 'centro', 
+                'Centro_Nombre': 'nombre',
+                'Departamento':'departamento',
+                'Municipio':'municipio',
+                'Direccion':'direccion',
+                'Telefono':'telefono',
+                'Encargado':'encargado',
+                'Email':'email'
+                },
+    'periodos': {
+                    'Carrera': 'carrera', 
+                    'Periodo': 'periodo',
+                    'Descripcion': 'descripcion'
+                }
 }
 
 
