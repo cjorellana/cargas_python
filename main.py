@@ -1,6 +1,10 @@
 import argparse
+import psycopg2
 import requests
-#from sqlalchemy import create_engine
+from configparser import ConfigParser
+
+conn = None
+
 
 # Mapeo de tags a URLs de API y nombres de tabla
 API_MAP = {
@@ -30,6 +34,22 @@ COL_MAP = {
                 }
 }
 
+def config(filename='database.ini', section='postgresql'):
+    # create a parser
+    parser = ConfigParser()
+    # read config file
+    parser.read(filename)
+
+    # get section, default to postgresql
+    db = {}
+    if parser.has_section(section):
+        params = parser.items(section)
+        for param in params:
+            db[param[0]] = param[1]
+    else:
+        raise Exception('Section {0} not found in the {1} file'.format(section, filename))
+
+    return db
 
 def obtener_datos(api_url):
     response = requests.get(api_url)
@@ -39,6 +59,11 @@ def obtener_datos(api_url):
         return None
 
 def guardar_datos(table_name, data):
+    conn = None
+    # Conectar a la db
+    params = config()
+    conn = psycopg2.connect(**params)
+
     for single_data in data:
         # Crear un nuevo diccionario vacío para almacenar los datos transformados
         single_data_transformed = {}
@@ -54,12 +79,28 @@ def guardar_datos(table_name, data):
 
         # listado de columnas
         columns = ", ".join(single_data_transformed.keys())
+        
         # listado de valores
-        placeholders = ", ".join(["%s"] * len(single_data))
+        #placeholders = ", ".join(["%s"] * len(single_data))
+        placeholders = ", ".join(["%s"] * len(single_data_transformed))
         
         # Generar la consulta SQL en base a columnas y valores
-        query = f"INSERT INTO {table_name} ({columns}) VALUES ({placeholders}) RETURNING id"
-        print(query)
+        query = f"INSERT INTO {table_name} ({columns}) VALUES ({placeholders})"    
+
+
+        valores_dict = single_data.values()
+        lista_valores = list(valores_dict)
+
+        # create a cursor
+        cur = conn.cursor()
+        cur.execute(query, lista_valores)
+
+         # Commitea la transacción
+        conn.commit()
+        
+         # Cierra la conexión
+        cur.close()
+        cur.close()
         
     # Obtener el mapeo para la tabla actual
     #columnas = COL_MAP.get(nombre_tabla, {})
