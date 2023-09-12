@@ -11,6 +11,8 @@ API_MAP = {
     "horarios": {"url": "https://informatica.galileo.edu/apicentrosidea/api/consulta/horarioscursos", "table": "horarios"},
 }
 
+# Mapeo de campos de la tabla y el json
+
 
 def fetch_data(api_url):
     response = requests.get(api_url)
