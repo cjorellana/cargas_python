@@ -31,14 +31,14 @@ COL_MAP = {
 }
 
 
-def fetch_data(api_url):
+def obtener_datos(api_url):
     response = requests.get(api_url)
     if response.status_code == 200:
         return response.json()
     else:
         return None
 
-def store_data(table_name, data):
+def guardar_datos(table_name, data):    
     pass
 
 def main(api_tags):
@@ -48,10 +48,10 @@ def main(api_tags):
         if endpoint:
             #print(endpoint["url"])
             # respuesta de la api esta en data
-            data = fetch_data(endpoint["url"])
+            data = obtener_datos(endpoint["url"])
             print(data)
             if data:
-                row_id = store_data(endpoint["table"], data)
+                row_id = guardar_datos(endpoint["table"], data)
 
 
 if __name__ == '__main__':
