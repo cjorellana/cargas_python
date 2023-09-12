@@ -38,8 +38,35 @@ def obtener_datos(api_url):
     else:
         return None
 
-def guardar_datos(table_name, data):    
-    pass
+def guardar_datos(table_name, data):
+    for single_data in data:
+        # Crear un nuevo diccionario vacío para almacenar los datos transformados
+        single_data_transformed = {}
+        # Obtén el mapeo de columnas correspondiente a la tabla actual
+        column_mapping = COL_MAP.get(table_name, {})
+        # Iterar a través de cada par clave-valor en single_data
+        for k, v in single_data.items():
+            # Obtener la nueva clave del mapeo de columnas, o usar la clave original si no hay un mapeo correspondiente
+            new_key = column_mapping.get(k, k)
+        
+            # Información de la tabla actual corregida
+            single_data_transformed[new_key] = v
+
+        # listado de columnas
+        columns = ", ".join(single_data_transformed.keys())
+        # listado de valores
+        placeholders = ", ".join(["%s"] * len(single_data))
+        
+        # Generar la consulta SQL
+        query = f"INSERT INTO {table_name} ({columns}) VALUES ({placeholders}) RETURNING id"
+        print(query)
+        
+    # Obtener el mapeo para la tabla actual
+    #columnas = COL_MAP.get(nombre_tabla, {})
+    # Convertir las claves en los nombres de columnas correctos
+    #data = {COL_MAP.get(k, k): v for k, v in data.items()}
+    
+
 
 def main(api_tags):
     results = []
@@ -48,8 +75,8 @@ def main(api_tags):
         if endpoint:
             #print(endpoint["url"])
             # respuesta de la api esta en data
-            data = obtener_datos(endpoint["url"])
-            print(data)
+            data = obtener_datos(endpoint["url"])           
+            #print(data)
             if data:
                 row_id = guardar_datos(endpoint["table"], data)
 
