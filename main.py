@@ -4,11 +4,11 @@ import requests
 
 # Mapeo de tags a URLs de API y nombres de tabla
 API_MAP = {
-    "centros": {"url": "https://informatica.galileo.edu/apicentrosidea/api/consulta/listadocentros", "table": "api_data_1"},
-    "periodos": {"url": "https://informatica.galileo.edu/apicentrosidea/api/consulta/listadoespecialidades", "table": "api_data_2"},
-    "especialidades": {"url": "https://informatica.galileo.edu/apicentrosidea/api/consulta/listadoespecialidades", "table": "api_data_2"},
-    "cursos": {"url": "https://informatica.galileo.edu/apicentrosidea/api/consulta/listadocursos", "table": "api_data_2"},    
-    "horarios": {"url": "https://informatica.galileo.edu/apicentrosidea/api/consulta/horarioscursos", "table": "api_data_2"},
+    "centros": {"url": "https://informatica.galileo.edu/apicentrosidea/api/consulta/listadocentros", "table": "centros"},
+    "periodos": {"url": "https://informatica.galileo.edu/apicentrosidea/api/consulta/listadoespecialidades", "table": "periodos"},
+    "especialidades": {"url": "https://informatica.galileo.edu/apicentrosidea/api/consulta/listadoespecialidades", "table": "especialidades"},
+    "cursos": {"url": "https://informatica.galileo.edu/apicentrosidea/api/consulta/listadocursos", "table": "cursos"},    
+    "horarios": {"url": "https://informatica.galileo.edu/apicentrosidea/api/consulta/horarioscursos", "table": "horarios"},
 }
 
 
@@ -19,15 +19,20 @@ def fetch_data(api_url):
     else:
         return None
 
+def store_data(table_name, data):
+    pass
+
 def main(api_tags):
     results = []
     for tag in api_tags:
         endpoint = API_MAP.get(tag)
         if endpoint:
-            print(endpoint["url"])
-            #data = fetch_data(endpoint["url"])
-            #if data:
-            #    row_id = store_data(endpoint["table"], data)
+            #print(endpoint["url"])
+            # respuesta de la api esta en data
+            data = fetch_data(endpoint["url"])
+            print(data)
+            if data:
+                row_id = store_data(endpoint["table"], data)
 
 
 if __name__ == '__main__':
