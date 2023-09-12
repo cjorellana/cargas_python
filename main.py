@@ -1,5 +1,5 @@
 import argparse
-#import requests
+import requests
 #from sqlalchemy import create_engine
 
 # Mapeo de tags a URLs de API y nombres de tabla
@@ -12,6 +12,13 @@ API_MAP = {
 }
 
 
+def fetch_data(api_url):
+    response = requests.get(api_url)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return None
+
 def main(api_tags):
     results = []
     for tag in api_tags:
@@ -19,6 +26,8 @@ def main(api_tags):
         if endpoint:
             print(endpoint["url"])
             #data = fetch_data(endpoint["url"])
+            #if data:
+            #    row_id = store_data(endpoint["table"], data)
 
 
 if __name__ == '__main__':
