@@ -12,6 +12,10 @@ API_MAP = {
 }
 
 # Mapeo de campos de la tabla y el json
+COLUMN_MAPPINGS = {
+    'centros': {'Centro': 'centro', 'Centro_Nombre': 'nombre','Departamento':'departamento'},
+    'periodos': {'Nombre': 'nombre_municipio', 'personas': 'personas'}
+}
 
 
 def fetch_data(api_url):
