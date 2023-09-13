@@ -2,6 +2,7 @@ import argparse
 import psycopg2
 import requests
 from configparser import ConfigParser
+import sys
 
 conn = None
 
@@ -9,7 +10,7 @@ conn = None
 # Mapeo de tags a URLs de API y nombres de tabla
 API_MAP = {
     "centros": {"url": "https://informatica.galileo.edu/apicentrosidea/api/consulta/listadocentros", "table": "centros"},
-    "periodos": {"url": "https://informatica.galileo.edu/apicentrosidea/api/consulta/listadoespecialidades", "table": "periodos"},
+    "periodos": {"url": "https://informatica.galileo.edu/apicentrosidea/api/consulta/listadoperiodos", "table": "periodos"},
     "especialidades": {"url": "https://informatica.galileo.edu/apicentrosidea/api/consulta/listadoespecialidades", "table": "especialidades"},
     "cursos": {"url": "https://informatica.galileo.edu/apicentrosidea/api/consulta/listadocursos", "table": "cursos"},    
     "horarios": {"url": "https://informatica.galileo.edu/apicentrosidea/api/consulta/horarioscursos", "table": "horarios"},
@@ -64,6 +65,10 @@ def guardar_datos(table_name, data):
     params = config()
     conn = psycopg2.connect(**params)
 
+    #
+    print(data)
+    sys.exit()
+
     for single_data in data:
         # Crear un nuevo diccionario vacío para almacenar los datos transformados
         single_data_transformed = {}
@@ -116,10 +121,11 @@ def main(api_tags):
         if endpoint:
             #print(endpoint["url"])
             # respuesta de la api esta en data
-            data = obtener_datos(endpoint["url"])           
-            #print(data)
+            data = obtener_datos(endpoint["url"])                       
             if data:
                 row_id = guardar_datos(endpoint["table"], data)
+            else:
+                print('No hay datos para el endpoint ', endpoint["url"])
 
 
 if __name__ == '__main__':
