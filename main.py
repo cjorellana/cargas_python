@@ -37,6 +37,36 @@ COL_MAP = {
                     'Carrera': 'carrera', 
                     'Pensum': 'pensum',
                     'Nombre': 'nombre'
+                },
+    'cursos': {
+                    'Carrera': 'carrera',                     
+                    'Descripcion': 'nombre_curso',
+                    'Seccion': 'seccion',
+                    'Tipoasig': 'tipoasig',
+                    'Periodo': 'periodo',
+                    'Curso': 'curso',
+                    'Centro': 'centro',
+                    'Pensum': 'pensum',
+                    'Ciclo': 'ciclo',
+                    'Jornada': 'jornada',
+                    'Desc_Seccion': 'desc_seccion',
+                    'Inicio': 'inicio',
+                    'Fin': 'fin'                    
+                },
+    'horarios': {
+                    'Carrera': 'carrera',                     
+                    'Descripcion': 'nombre_curso',
+                    'Seccion': 'seccion',
+                    'Tipoasig': 'tipoasig',
+                    'Periodo': 'periodo',
+                    'Curso': 'curso',
+                    'Centro': 'centro',
+                    'Pensum': 'pensum',
+                    'Ciclo': 'ciclo',
+                    'Jornada': 'jornada',
+                    'Desc_Seccion': 'desc_seccion',
+                    'Inicio': 'inicio',
+                    'Fin': 'fin'                    
                 }
 }
 
