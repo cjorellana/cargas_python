@@ -11,6 +11,10 @@ llenarHorarios.php
 
 # python
 python main.py centros periodos
+python main.py centros
+python main.py periodos
+python main.py especialidades
+
 
 # librerias (posibles)
 pip install requests

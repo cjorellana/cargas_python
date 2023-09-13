@@ -10,7 +10,7 @@ conn = None
 # Mapeo de tags a URLs de API y nombres de tabla
 API_MAP = {
     "centros": {"url": "https://informatica.galileo.edu/apicentrosidea/api/consulta/listadocentros", "table": "centros"},
-    "periodos": {"url": "https://informatica.galileo.edu/apicentrosidea/api/consulta/listadoperiodos", "table": "periodos"},
+    "periodos": {"url": "https://informatica.galileo.edu/apicentrosidea/api/consulta/descripcionperiodo", "table": "periodos"},
     "especialidades": {"url": "https://informatica.galileo.edu/apicentrosidea/api/consulta/listadoespecialidades", "table": "especialidades"},
     "cursos": {"url": "https://informatica.galileo.edu/apicentrosidea/api/consulta/listadocursos", "table": "cursos"},    
     "horarios": {"url": "https://informatica.galileo.edu/apicentrosidea/api/consulta/horarioscursos", "table": "horarios"},
@@ -32,6 +32,11 @@ COL_MAP = {
                     'Carrera': 'carrera', 
                     'Periodo': 'periodo',
                     'Descripcion': 'descripcion'
+                },
+    'especialidades': {
+                    'Carrera': 'carrera', 
+                    'Pensum': 'pensum',
+                    'Nombre': 'nombre'
                 }
 }
 
@@ -65,9 +70,9 @@ def guardar_datos(table_name, data):
     params = config()
     conn = psycopg2.connect(**params)
 
-    #
-    print(data)
-    sys.exit()
+    # test de data
+    #print(data)
+    #sys.exit()
 
     for single_data in data:
         # Crear un nuevo diccionario vacío para almacenar los datos transformados
