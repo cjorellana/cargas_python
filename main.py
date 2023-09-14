@@ -106,6 +106,8 @@ def guardar_datos(table_name, data):
     #print(data)
     #sys.exit()
 
+    fila_insertada_count = 0
+
     for single_data in data:
         # Crear un nuevo diccionario vacío para almacenar los datos transformados
         single_data_transformed = {}
@@ -139,10 +141,16 @@ def guardar_datos(table_name, data):
 
          # Commitea la transacción
         conn.commit()
+
+        #cuenta filas afectadas
+        fila_insertada_count += cur.rowcount
         
          # Cierra la conexión
         cur.close()
         cur.close()
+
+    
+    print(f"Se insertaron {fila_insertada_count} registros en la tabla {table_name}")
         
     
 
