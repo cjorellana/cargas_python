@@ -90,6 +90,8 @@ def config(filename='database.ini', section='postgresql'):
 def obtener_datos(api_url):
     response = requests.get(api_url)
     if response.status_code == 200:
+        ljson = len(response.json())        
+        print(f"Se encontraron {ljson} registros en la url: {api_url}")        
         return response.json()
     else:
         return None
@@ -142,10 +144,6 @@ def guardar_datos(table_name, data):
         cur.close()
         cur.close()
         
-    # Obtener el mapeo para la tabla actual
-    #columnas = COL_MAP.get(nombre_tabla, {})
-    # Convertir las claves en los nombres de columnas correctos
-    #data = {COL_MAP.get(k, k): v for k, v in data.items()}
     
 
 

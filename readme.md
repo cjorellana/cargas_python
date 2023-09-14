@@ -14,6 +14,8 @@ python main.py centros periodos
 python main.py centros
 python main.py periodos
 python main.py especialidades
+python main.py cursos
+python main.py horarios
 
 
 # librerias (posibles)
