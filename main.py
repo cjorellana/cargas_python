@@ -1,9 +1,13 @@
 import argparse
 import psycopg2
 import requests
-from configparser import ConfigParser
 import sys
+from db_config import config
+from db_operations import limpiar_tabla
 
+
+
+# conexion a la db, servira mas adelante no esta de adorno.
 conn = None
 
 
@@ -70,22 +74,7 @@ COL_MAP = {
                 }
 }
 
-def config(filename='database.ini', section='postgresql'):
-    # create a parser
-    parser = ConfigParser()
-    # read config file
-    parser.read(filename)
 
-    # get section, default to postgresql
-    db = {}
-    if parser.has_section(section):
-        params = parser.items(section)
-        for param in params:
-            db[param[0]] = param[1]
-    else:
-        raise Exception('Section {0} not found in the {1} file'.format(section, filename))
-
-    return db
 
 def obtener_datos(api_url):
     response = requests.get(api_url)
@@ -98,9 +87,9 @@ def obtener_datos(api_url):
 
 def guardar_datos(table_name, data):
     conn = None
-    # Conectar a la db
-    params = config()
-    conn = psycopg2.connect(**params)
+    # Conectar a la db    
+    db_params = config()
+    conn = psycopg2.connect(**db_params)
 
     # test de data
     #print(data)
@@ -164,6 +153,8 @@ def main(api_tags):
             # respuesta de la api esta en data
             data = obtener_datos(endpoint["url"])                       
             if data:
+                #si hay datos limpia la tabla y ingresa los datos nuevos
+                limpiar_tabla(endpoint["table"])
                 row_id = guardar_datos(endpoint["table"], data)
             else:
                 print('No hay datos para el endpoint ', endpoint["url"])
